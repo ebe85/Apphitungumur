@@ -51,8 +51,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  //int _counter = 0;
   bool _validate = false;
+  bool _validate2 = false;
+  bool _validate3 = false;
   TextEditingController tgl = TextEditingController();
   TextEditingController bln = TextEditingController();
   TextEditingController thn = TextEditingController();
@@ -60,6 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
   String ibln;
   String ithn;
   String tglLahir;
+
+  @override
+  void dispose() {
+    tgl.dispose();
+    bln.dispose();
+    thn.dispose();
+    super.dispose();
+  }
   void _hitungUmur() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -71,7 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
       itgl=tgl.text;
       ibln=bln.text;
       ithn=thn.text;
+      tgl.text.isEmpty ? _validate = true : _validate = false;
+      bln.text.isEmpty ? _validate2 = true : _validate2 = false;
+      thn.text.isEmpty ? _validate3 = true : _validate3 = false;
     });
+
     DateTime currentDate = DateTime.now();
     String datePattern = "dd-MM-yyyy";
     DateTime tglLhr = DateTime(
@@ -158,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: tgl,
                         decoration: InputDecoration(
                             labelText: 'Tanggal',
-                            errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                            errorText: _validate ? 'Not Empty' : null,
                             contentPadding: EdgeInsets.all(10)
                         )
                     ),
@@ -171,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: bln,
                         decoration: InputDecoration(
                             labelText: '/Bulan',
+                            errorText: _validate2 ? 'Not Empty' : null,
                             contentPadding: EdgeInsets.all(10)
                         )
                     ),
@@ -183,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: thn,
                         decoration: InputDecoration(
                             labelText: '/Tahun',
+                            errorText: _validate3 ? 'Not Empty' : null,
                             contentPadding: EdgeInsets.all(10)
                         )
                     ),
